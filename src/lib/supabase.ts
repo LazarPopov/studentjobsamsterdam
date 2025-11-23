@@ -23,6 +23,7 @@ export interface EmployerJobSubmission {
   category: string;
   city: string;
   area?: string;
+  region: string;
   base_salary_min?: number;
   base_salary_max?: number;
   description: string;
