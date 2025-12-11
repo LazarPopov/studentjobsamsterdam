@@ -113,7 +113,7 @@ descriptionHtml: "<p><strong>Are you tired of endless study sessions and sitting
   perSaleAmountText: "14 euros per hour",
   logoUrl: "/logos/thuisbezorgd.png",
   logoAlt: "Thuisbezorgd.nl logo",
-  externalUrl: "https://www.thuisbezorgd.nl/en/courier?city=blank&raf_id=478ba2228ffa17c8e591f221e022ffa2"
+  externalUrl: "http://short.takeaway.com/nl355999758"
 },
     {
     slug: "pepperminds-door-to-door-sales-groningen",
@@ -214,7 +214,7 @@ externalUrl: "https://www.uber.com/signup/drive/deliver/?invite_code=a6cpc37",
     perSaleAmount: 200,                            // €200 per successful listing/placement
     logoUrl: "/logos/domakin.png",
     logoAlt: "Domakin logo",
-    externalUrl: "https://www.domakin.nl/services/add-listing",
+    externalUrl: "https://www.domakin.nl/careers",
   },
   {
     slug: "rentswap-room-finder-groningen",
