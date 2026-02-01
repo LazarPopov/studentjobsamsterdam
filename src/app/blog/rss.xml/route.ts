@@ -2,9 +2,9 @@
 import { NextResponse } from "next/server";
 const site = "https://studentjobsgroningen.nl";
 const posts = [
-  { slug: "english-speaking-student-jobs-groningen", title: "English-Speaking Student Jobs in Groningen (2025)" },
-  { slug: "student-jobs-groningen-complete-guide-2025", title: "Student Jobs in Groningen — Complete Guide (2025)" },
-  { slug: "best-paying-student-jobs-groningen-2025", title: "Best-Paying Student Jobs in Groningen (2025)" },
+  { slug: "english-speaking-student-jobs-groningen", title: "English-Speaking Student Jobs in Groningen (2026)" },
+  { slug: "student-jobs-groningen-complete-guide-2026", title: "Student Jobs in Groningen — Complete Guide (2026)" },
+  { slug: "best-paying-student-jobs-groningen-2026", title: "Best-Paying Student Jobs in Groningen (2026)" },
 ];
 export async function GET() {
   const items = posts.map(p => `

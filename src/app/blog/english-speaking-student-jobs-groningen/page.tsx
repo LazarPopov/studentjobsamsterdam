@@ -1,20 +1,20 @@
-// src/app/blog/best-paying-student-jobs-groningen-2025/page.tsx
+// src/app/blog/best-paying-student-jobs-groningen-2026/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const PUBLISH_DATE = "2025-10-02";
-const MODIFIED_DATE = "2025-10-02";
+const PUBLISH_DATE = "2026-10-02";
+const MODIFIED_DATE = "2026-10-02";
 const CANONICAL =
-  "https://studentjobsgroningen.nl/blog/best-paying-student-jobs-groningen-2025";
+  "https://studentjobsgroningen.nl/blog/best-paying-student-jobs-groningen-2026";
 const OG_IMAGE =
   "https://studentjobsgroningen.nl/blog/international-students-looking-for-English-speaking-jobs-near-Groningens-Erasmus-Bridge.jpg";
 
 export const metadata: Metadata = {
   title:
-    "Best-Paying Student Jobs in Groningen (2025) — Shift Types, Industries & Certifications",
+    "Best-Paying Student Jobs in Groningen (2026) — Shift Types, Industries & Certifications",
   description:
-    "Discover the best-paying student jobs in Groningen for 2025: evening/weekend shifts, logistics, tutoring, events team leads, and certifications like BHV, HACCP, VCA, forklift.",
+    "Discover the best-paying student jobs in Groningen for 2026: evening/weekend shifts, logistics, tutoring, events team leads, and certifications like BHV, HACCP, VCA, forklift.",
   keywords: [
     "best paying student jobs Groningen",
     "high paying student jobs Groningen",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: "Best-Paying Student Jobs in Groningen (2025)",
+    title: "Best-Paying Student Jobs in Groningen (2026)",
     description:
       "Shift types, industries, and certifications that add €€ to your hourly rate — with quick wins for students.",
     url: CANONICAL,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best-Paying Student Jobs in Groningen (2025)",
+    title: "Best-Paying Student Jobs in Groningen (2026)",
     description:
       "Which student jobs pay the most in Groningen? Get the tactics, categories, and certs to boost your rate fast.",
     images: [OG_IMAGE],
@@ -52,7 +52,7 @@ export default function BestPayingGuide() {
         {/* HEADER */}
         <header className="max-w-3xl">
           <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
-            Best-Paying Student Jobs in Groningen (2025)
+            Best-Paying Student Jobs in Groningen (2026)
           </h1>
           <p className="mt-3 text-sm text-slate-600">
             By <span className="font-medium">Student Jobs Groningen</span> •
@@ -315,7 +315,7 @@ export default function BestPayingGuide() {
               "@context": "https://schema.org",
               "@type": "Article",
               headline:
-                "Best-Paying Student Jobs in Groningen (2025) — Shift Types, Industries & Certifications",
+                "Best-Paying Student Jobs in Groningen (2026) — Shift Types, Industries & Certifications",
               description:
                 "Shift types, industries, and certifications that add €€ to your hourly rate as a student in Groningen.",
               image: OG_IMAGE,
@@ -350,7 +350,7 @@ export default function BestPayingGuide() {
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Best-Paying Student Jobs in Groningen (2025)",
+                  name: "Best-Paying Student Jobs in Groningen (2026)",
                   item: CANONICAL,
                 },
               ],

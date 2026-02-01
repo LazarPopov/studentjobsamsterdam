@@ -34,17 +34,17 @@ export default function SiteFooter() {
           <ul className="mt-3 space-y-2 text-sm">
             <li>
               <Link href="/blog/english-speaking-student-jobs-groningen" className="underline underline-offset-2">
-                English-Speaking Student Jobs (2025)
+                English-Speaking Student Jobs (2026)
               </Link>
             </li>
             <li>
-              <Link href="/blog/best-paying-student-jobs-groningen-2025" className="underline underline-offset-2">
-                Best-Paying Student Jobs (2025)
+              <Link href="/blog/best-paying-student-jobs-groningen-2026" className="underline underline-offset-2">
+                Best-Paying Student Jobs (2026)
               </Link>
             </li>
             <li>
-              <Link href="/blog/student-jobs-groningen-complete-guide-2025" className="underline underline-offset-2">
-                Complete Guide (2025)
+              <Link href="/blog/student-jobs-groningen-complete-guide-2026" className="underline underline-offset-2">
+                Complete Guide (2026)
               </Link>
             </li>
           </ul>

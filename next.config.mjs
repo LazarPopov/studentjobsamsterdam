@@ -3,7 +3,7 @@ export default {
     return [
       {
         source: "/blog/best-paying-student-jobs-groningen",
-        destination: "/blog/best-paying-student-jobs-groningen-2025",
+        destination: "/blog/best-paying-student-jobs-groningen-2026",
         permanent: true, // 308
       },
     ];

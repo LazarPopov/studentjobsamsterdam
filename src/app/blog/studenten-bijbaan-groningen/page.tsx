@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const PUBLISH_DATE = "2025-10-02";
-const MODIFIED_DATE = "2025-10-02";
+const PUBLISH_DATE = "2026-10-02";
+const MODIFIED_DATE = "2026-10-02";
 const CANONICAL = "https://studentjobsgroningen.nl/studenten-bijbaan-groningen";
 const OG_IMAGE =
   "https://studentjobsgroningen.nl/blog/international-students-looking-for-English-speaking-jobs-near-Groningens-Erasmus-Bridge.jpg";
 
 export const metadata: Metadata = {
-  title: "Studenten bijbaan Groningen (2025) – Goed betaald, Engelstalig & weekend",
+  title: "Studenten bijbaan Groningen (2026) – Goed betaald, Engelstalig & weekend",
   description:
     "De ultieme gids voor een studenten bijbaan in Groningen: avond/weekend, Engelstalig, zonder ervaring. Uurloon-tabellen, contractvormen, wijken en snelle filters.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: "Studenten bijbaan Groningen (2025) – Goed betaald, Engelstalig & weekend",
+    title: "Studenten bijbaan Groningen (2026) – Goed betaald, Engelstalig & weekend",
     description:
       "Pillar-pagina met snelle filters (avond, weekend, Engels, zonder ervaring), uurloon per sector en live vacatures in Groningen.",
     url: CANONICAL,
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Studenten bijbaan Groningen (2025) – Goed betaald, Engelstalig & weekend",
+    title: "Studenten bijbaan Groningen (2026) – Goed betaald, Engelstalig & weekend",
     description:
       "Waar vind je snel een bijbaan in Groningen? Bekijk filters, uurloon-tabellen en live vacatures.",
     images: [OG_IMAGE],
@@ -49,7 +49,7 @@ export default function StudentenBijbaanGroningen() {
         {/* HEADER */}
         <header className="max-w-3xl">
           <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
-            Studenten bijbaan in Groningen: de ultieme gids (2025)
+            Studenten bijbaan in Groningen: de ultieme gids (2026)
           </h1>
           <p className="mt-3 text-sm text-slate-600">
             Door <span className="font-medium">Student Jobs Groningen</span> • Bijgewerkt{" "}
@@ -63,7 +63,7 @@ export default function StudentenBijbaanGroningen() {
           {/* Language toggle / A/B: Read in English */}
           <div className="mt-3">
             <Link
-              href="/blog/student-jobs-groningen-complete-guide-2025"
+              href="/blog/student-jobs-groningen-complete-guide-2026"
               className="inline-flex items-center rounded-full border px-3 py-1 text-xs md:text-sm underline hover:no-underline"
               aria-label="Read in English"
               data-ab="english-cta"
@@ -243,7 +243,7 @@ export default function StudentenBijbaanGroningen() {
               </table>
             </div>
             <p className="text-sm text-slate-600">
-              Indicatief voor 2025. Werkelijk loon hangt af van leeftijd, ervaring, cao en toeslagen.
+              Indicatief voor 2026. Werkelijk loon hangt af van leeftijd, ervaring, cao en toeslagen.
             </p>
 
             <h2 id="contracten">Contractvormen: parttime / tijdelijk / oproep – wat past bij jou?</h2>
@@ -330,7 +330,7 @@ export default function StudentenBijbaanGroningen() {
               <Link href="/jobs?city=Groningen&english=true">Engels-vriendelijke vacatures</Link>.
             </p>
 
-            <h3>Wat verdient een student in 2025?</h3>
+            <h3>Wat verdient een student in 2026?</h3>
             <p>
               Vaak <strong>€13–€17 per uur</strong> in horeca/logistiek/retail en <strong>€15–€22</strong> voor bijles.
               Toeslagen en fooi kunnen je uurloon verhogen.
@@ -351,7 +351,7 @@ export default function StudentenBijbaanGroningen() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Article",
-              headline: "Studenten bijbaan Groningen (2025) – Goed betaald, Engelstalig & weekend",
+              headline: "Studenten bijbaan Groningen (2026) – Goed betaald, Engelstalig & weekend",
               description:
                 "Pillar-gids voor studenten bijbanen in Groningen met snelle filters, uurloon-tabellen, contractvormen en live vacatures.",
               image: OG_IMAGE,
@@ -404,7 +404,7 @@ export default function StudentenBijbaanGroningen() {
                 },
                 {
                   "@type": "Question",
-                  name: "Wat verdient een student in 2025?",
+                  name: "Wat verdient een student in 2026?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text:

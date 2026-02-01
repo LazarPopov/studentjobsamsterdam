@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const PUBLISH_DATE = "2025-10-02";
-const MODIFIED_DATE = "2025-10-02";
+const PUBLISH_DATE = "2026-10-02";
+const MODIFIED_DATE = "2026-10-02";
 const CANONICAL = "https://studentjobsgroningen.nl/part-time-jobs-groningen-students";
 const OG_IMAGE =
   "https://studentjobsgroningen.nl/blog/international-students-looking-for-English-speaking-jobs-near-Rotterdams-Erasmus-Bridge.jpg";
 
 export const metadata: Metadata = {
-  title: "Student part-time jobs Rotterdam (2025) – Well-paid, English-friendly & weekend",
+  title: "Student part-time jobs Rotterdam (2026) – Well-paid, English-friendly & weekend",
   description:
     "The ultimate guide to student part-time jobs in Rotterdam: evening/weekend, English-friendly, no experience. Hourly pay tables, contract types, neighborhoods, and quick filters.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: CANONICAL },
   openGraph: {
-    title: "Student part-time jobs Rotterdam (2025) – Well-paid, English-friendly & weekend",
+    title: "Student part-time jobs Rotterdam (2026) – Well-paid, English-friendly & weekend",
     description:
       "Pillar page with fast filters (evening, weekend, English, no experience), hourly pay per sector, and live vacancies in Rotterdam.",
     url: CANONICAL,
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Student part-time jobs Rotterdam (2025) – Well-paid, English-friendly & weekend",
+    title: "Student part-time jobs Rotterdam (2026) – Well-paid, English-friendly & weekend",
     description:
       "Where to quickly find a part-time job in Rotterdam? Check filters, pay tables, and live vacancies.",
     images: [OG_IMAGE],
@@ -49,7 +49,7 @@ export default function StudentenBijbaanRotterdam() {
         {/* HEADER */}
         <header className="max-w-3xl">
           <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
-            Student part-time jobs in Rotterdam: the ultimate guide (2025)
+            Student part-time jobs in Rotterdam: the ultimate guide (2026)
           </h1>
           <p className="mt-3 text-sm text-slate-600">
             By <span className="font-medium">Student Jobs Rotterdam</span> • Updated{" "}
@@ -243,7 +243,7 @@ export default function StudentenBijbaanRotterdam() {
               </table>
             </div>
             <p className="text-sm text-slate-600">
-              Indicative for 2025. Actual pay depends on age, experience, CBA, and allowances.
+              Indicative for 2026. Actual pay depends on age, experience, CBA, and allowances.
             </p>
 
             <h2 id="contracts">Contract types: part-time / temporary / on-call – what fits you?</h2>
@@ -329,7 +329,7 @@ export default function StudentenBijbaanRotterdam() {
               <Link href="/jobs?city=Rotterdam&english=true">English-friendly vacancies</Link>.
             </p>
 
-            <h3>What does a student earn in 2025?</h3>
+            <h3>What does a student earn in 2026?</h3>
             <p>
               Often <strong>€13–€17 per hour</strong> in hospitality/logistics/retail and <strong>€15–€22</strong> for tutoring.
               Allowances and tips can increase your hourly rate.
@@ -350,7 +350,7 @@ export default function StudentenBijbaanRotterdam() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Article",
-              headline: "Student part-time jobs Rotterdam (2025) – Well-paid, English-friendly & weekend",
+              headline: "Student part-time jobs Rotterdam (2026) – Well-paid, English-friendly & weekend",
               description:
                 "Pillar guide for student part-time jobs in Rotterdam with fast filters, hourly pay tables, contract types, and live vacancies.",
               image: OG_IMAGE,
@@ -403,7 +403,7 @@ export default function StudentenBijbaanRotterdam() {
                 },
                 {
                   "@type": "Question",
-                  name: "What does a student earn in 2025?",
+                  name: "What does a student earn in 2026?",
                   acceptedAnswer: {
                     "@type": "Answer",
                     text:

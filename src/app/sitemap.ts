@@ -39,8 +39,8 @@ export default function sitemap() {
 
   const blog = [
     "english-speaking-student-jobs-groningen",
-    "student-jobs-groningen-complete-guide-2025",
-    "best-paying-student-jobs-groningen-2025",
+    "student-jobs-groningen-complete-guide-2026",
+    "best-paying-student-jobs-groningen-2026",
   ].map((slug) => ({
     url: `${base}/blog/${slug}`,
     changefreq: "monthly",

@@ -40,12 +40,12 @@ function JobCardLink({
 }
 
 export const metadata: Metadata = {
-  title: "Student Jobs in Groningen (2025) | Part-Time & English-Friendly Work",
+  title: "Student Jobs in Groningen (2026) | Part-Time & English-Friendly Work",
   description:
     "Find student jobs in Groningen: hospitality, logistics, retail, tutoring and more. English-friendly roles, flexible hours, updated daily.",
   alternates: { canonical: "https://studentjobsgroningen.nl/" },
   openGraph: {
-    title: "Student Jobs in Groningen (2025)",
+    title: "Student Jobs in Groningen (2026)",
     description:
       "Part-time & English-friendly work for students in Groningen. Updated daily.",
     url: "https://studentjobsgroningen.nl/",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Student Jobs in Groningen (2025)",
+    title: "Student Jobs in Groningen (2026)",
     description:
       "Part-time & English-friendly work for students in Groningen. Updated daily.",
   },
@@ -77,25 +77,25 @@ export default function Page() {
     {
       slug: "studenten-bijbaan-groningen",
       title:
-        "Studenten bijbaan Groningen (2025) – Goed betaald, Engelstalig & weekend",
+        "Studenten bijbaan Groningen (2026) – Goed betaald, Engelstalig & weekend",
       excerpt:
         "De ultieme gids voor een studenten bijbaan in Groningen: avond/weekend, Engelstalig, zonder ervaring. Uurloon-tabellen, contractvormen, wijken en snelle filters.",
     },
     {
-      slug: "student-jobs-groningen-complete-guide-2025",
-      title: "Student Jobs in Groningen — Complete Guide (2025)",
+      slug: "student-jobs-groningen-complete-guide-2026",
+      title: "Student Jobs in Groningen — Complete Guide (2026)",
       excerpt:
         "Permits, contracts, pay, neighborhoods, and tactics to land a job fast.",
     },
     {
       slug: "english-speaking-student-jobs-groningen",
-      title: "English-Speaking Student Jobs in Groningen (2025)",
+      title: "English-Speaking Student Jobs in Groningen (2026)",
       excerpt:
         "Where to find roles that don’t require Dutch, with quick-apply tips.",
     },
     {
-      slug: "best-paying-student-jobs-groningen-2025",
-      title: "Best-Paying Student Jobs in Groningen (2025)",
+      slug: "best-paying-student-jobs-groningen-2026",
+      title: "Best-Paying Student Jobs in Groningen (2026)",
       excerpt:
         "Shift bonuses, industries, and certifications that increase pay.",
     },
@@ -198,7 +198,7 @@ export default function Page() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h1 className="text-3xl md:text-5xl font-semibold text-white">
-                  Student Jobs in Groningen (2025)
+                  Student Jobs in Groningen (2026)
                 </h1>
                 <p className="mt-3 text-base md:text-xl text-white/90 max-w-2xl">
                   Part-time & English-friendly roles. Flexible hours. Updated daily.

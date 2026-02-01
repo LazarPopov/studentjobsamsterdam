@@ -7,6 +7,6 @@
   ],
   "redirects": [
     { "source": "/guides/:path*", "destination": "/blog/:path*", "permanent": true },
-    { "source": "/blog/best-paying-student-jobs-groningen", "destination": "/blog/best-paying-student-jobs-groningen-2025", "permanent": true }
+    { "source": "/blog/best-paying-student-jobs-groningen", "destination": "/blog/best-paying-student-jobs-groningen-2026", "permanent": true }
   ]
 }

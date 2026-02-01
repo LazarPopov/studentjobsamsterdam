@@ -243,7 +243,7 @@ Consider adding:
 
 ## Cost Considerations
 
-Supabase Storage pricing (as of 2025):
+Supabase Storage pricing (as of 2026):
 - **Free tier**: 1GB storage, 2GB bandwidth
 - **Pro tier**: 100GB storage, 200GB bandwidth
 
