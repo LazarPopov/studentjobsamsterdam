@@ -1,8 +1,7 @@
 // src/app/api/job-apply/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabaseAdmin";
-
-export const runtime = "nodejs";
+import { NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
+import { uploadCV } from "@/lib/storage";
 
 function isEmail(v: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -11,103 +10,113 @@ function toBool(v: FormDataEntryValue | null) {
   return String(v || "").toLowerCase() === "true";
 }
 
-const CV_BUCKET = "job-applications";
-
-export async function POST(req: NextRequest) {
-  let form: FormData;
+export async function POST(req: Request) {
   try {
-    form = await req.formData();
-  } catch {
-    return NextResponse.json({ error: "Invalid form data" }, { status: 400 });
-  }
+    const form = await req.formData();
 
-  const jobSlug = String(form.get("jobSlug") || "").trim();
-  const jobTitle = String(form.get("jobTitle") || "").trim() || null;
-  const orgName = String(form.get("orgName") || "").trim() || null;
-  const city = String(form.get("city") || "amsterdam").trim().toLowerCase();
+    // Honeypot (optional)
+    if (form.get("website")) return NextResponse.json({ ok: true }, { status: 200 });
 
-  const firstName = String(form.get("firstName") || "").trim();
-  const lastName = String(form.get("familyName") || "").trim();
-  const email = String(form.get("email") || "").trim();
-  const phone = String(form.get("phone") || "").trim() || null;
-  const message = String(form.get("message") || "").trim() || null;
+    const job_slug = String(form.get("jobSlug") || "").trim();
+    const job_title = String(form.get("jobTitle") || "").trim() || undefined;
+    const org_name = String(form.get("orgName") || "").trim() || undefined;
+    const city = String(form.get("city") || "amsterdam").trim().toLowerCase();
 
-  const consentThisAd = toBool(form.get("consentThisAd"));
-  const consentSimilarAds = toBool(form.get("consentSimilarAds"));
+    const first_name = String(form.get("firstName") || "").trim();
+    const last_name = String(form.get("familyName") || "").trim();
+    const email = String(form.get("email") || "").trim();
+    const phone = String(form.get("phone") || "").trim() || undefined;
+    const message = String(form.get("message") || "").trim() || undefined;
 
-  if (!jobSlug) return NextResponse.json({ error: "Missing jobSlug" }, { status: 400 });
-  if (!firstName) return NextResponse.json({ error: "Missing first name" }, { status: 400 });
-  if (!lastName) return NextResponse.json({ error: "Missing family name" }, { status: 400 });
-  if (!email || !isEmail(email)) return NextResponse.json({ error: "Invalid email" }, { status: 400 });
-  if (!consentThisAd)
-    return NextResponse.json({ error: "Consent for this job is required" }, { status: 400 });
+    const consent_this_ad = toBool(form.get("consentThisAd"));
+    const consent_similar_ads = toBool(form.get("consentSimilarAds"));
 
-  const cv = form.get("cv");
-  let cvPath: string | null = null;
-  let cvFilename: string | null = null;
-  let cvMime: string | null = null;
+    if (!job_slug) return NextResponse.json({ error: "Missing job slug." }, { status: 400 });
+    if (!first_name) return NextResponse.json({ error: "Missing first name." }, { status: 400 });
+    if (!last_name) return NextResponse.json({ error: "Missing family name." }, { status: 400 });
+    if (!email || !isEmail(email))
+      return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+    if (!consent_this_ad)
+      return NextResponse.json(
+        { error: "Consent for this job application is required." },
+        { status: 400 }
+      );
 
-  if (cv && typeof cv !== "string") {
-    const file = cv as File;
+    const cvFile = form.get("cv") as File | null;
 
-    const maxBytes = 8 * 1024 * 1024; // 8MB
-    if (file.size > maxBytes) {
-      return NextResponse.json({ error: "CV too large (max 8MB)" }, { status: 400 });
+    let cv_path: string | undefined;
+    let cv_filename: string | undefined;
+    let cv_mime: string | undefined;
+
+    if (cvFile && cvFile instanceof File && cvFile.size > 0 && cvFile.name !== "undefined") {
+      try {
+        const arrayBuffer = await cvFile.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        const uploaded = await uploadCV(
+          buffer,
+          cvFile.name,
+          cvFile.type,
+          job_slug,
+          first_name,
+          last_name
+        );
+
+        cv_path = uploaded.path;
+        cv_filename = uploaded.filename;
+        cv_mime = uploaded.mime;
+      } catch (uploadError) {
+        console.error("[CV_UPLOAD_ERROR]", uploadError);
+        return NextResponse.json(
+          { error: uploadError instanceof Error ? uploadError.message : "Failed to upload CV" },
+          { status: 400 }
+        );
+      }
     }
 
-    const safeName = file.name.replace(/[^\w.\-() ]+/g, "_");
-    const ts = new Date().toISOString().replace(/[:.]/g, "");
-    const random = Math.random().toString(16).slice(2);
-    cvPath = `${jobSlug}/${ts}_${random}_${safeName}`;
-    cvFilename = safeName;
-    cvMime = file.type || "application/octet-stream";
+    const name = `${first_name} ${last_name}`.trim();
+    const consent = consent_this_ad;
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    const insertRow = {
+      job_slug,
+      job_title,
+      org_name,
+      city,
+      first_name,
+      last_name,
+      name,
+      email,
+      phone,
+      message,
+      consent,
+      consent_this_ad,
+      consent_similar_ads,
+      cv_path,
+      cv_filename,
+      cv_mime,
+      source_url: req.headers.get("referer") || undefined,
+    };
 
-    const upload = await supabaseAdmin.storage
-      .from(CV_BUCKET)
-      .upload(cvPath, buffer, {
-        contentType: cvMime,
-        upsert: false,
-      });
+    const { data, error } = await supabase
+      .from("job_applications")
+      .insert([insertRow])
+      .select()
+      .single();
 
-    if (upload.error) {
-      return NextResponse.json({ error: upload.error.message }, { status: 500 });
+    if (error) {
+      console.error("[JOB_APPLY_ERROR]", error);
+      return NextResponse.json(
+        { error: "Failed to submit application. Please try again." },
+        { status: 500 }
+      );
     }
+
+    return NextResponse.json({ ok: true, id: data.id }, { status: 200 });
+  } catch (error) {
+    console.error("[JOB_APPLY_EXCEPTION]", error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred. Please try again later." },
+      { status: 500 }
+    );
   }
-
-  const fullName = `${firstName} ${lastName}`.trim();
-
-  const insertRow = {
-    job_slug: jobSlug,
-    job_title: jobTitle,
-    org_name: orgName,
-    city,
-
-    first_name: firstName,
-    last_name: lastName,
-    name: fullName, // keeps your old column useful
-    email,
-    phone,
-    message,
-
-    consent: consentThisAd, // keeps your old column useful
-    consent_this_ad: consentThisAd,
-    consent_similar_ads: consentSimilarAds,
-
-    cv_path: cvPath,
-    cv_filename: cvFilename,
-    cv_mime: cvMime,
-
-    source_url: req.headers.get("referer") || null,
-  };
-
-  const { error } = await supabaseAdmin.from("job_applications").insert(insertRow);
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ ok: true }, { status: 200 });
 }
