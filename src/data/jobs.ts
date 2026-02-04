@@ -124,17 +124,14 @@ descriptionHtml: "<p><strong>Are you tired of endless study sessions and sitting
   orgName: "AcademiaAI",
 
   descriptionHtml:
-    "<p><strong>Earn well per hour</strong> while working flexibly as an IB tutor with Acady. You can start with as little as <strong>1 hour per week</strong>, or scale up and earn a substantial monthly income.</p>" +
-    "<p>At Acady, you tutor only within your <strong>area of expertise</strong>. For example, an IB graduate who scored a 6 or 7 in Math AA HL and is studying or has completed a related university degree can tutor DP Math, but not DP Biology. This ensures <strong>high-quality lessons</strong>, which our students truly value.</p>" +
-    "<ul>" +
-    "<li><strong>Flexible schedule</strong> – choose your own availability</li>" +
-    "<li><strong>High hourly pay</strong></li>" +
-    "<li><strong>Teach subjects you are confident in</strong></li>" +
-    "<li><strong>Online and home tutoring options</strong></li>" +
-    "<li><strong>Fast hiring process</strong> – short online interview (~15 minutes)</li>" +
-    "</ul>" +
-    "<p><strong>We hire IB graduate tutors throughout the year.</strong> Once accepted, you can start tutoring quickly.</p>" +
-    "<p><strong>Interested? Apply now and start tutoring with Acady!</strong></p>" +
+    "<p><strong>Earn well per hour</strong> while working flexibly as an IB tutor with Academia. You can start with as little as <strong>1 hour per week</strong>, or scale up and earn a substantial monthly income.</p>" +
+    "<br>"+
+    "<p>At Academia, you tutor only within your <strong>area of expertise</strong>. For example, an IB graduate who scored a 6 or 7 in Math AA HL and is studying or has completed a related university degree can tutor DP Math, but not DP Biology. This ensures <strong>high-quality lessons</strong>, which our students truly value.</p>" +
+    "<br>"+
+    "<p>We hire IB graduate tutors throughout the year. Once accepted, you can start tutoring quickly.</p>" +  
+    "<p>Interested? Apply now and start tutoring with Academia!</p>" +
+    "<br>"+
+    "<p>When you apply please let us know: </p>"+
     "<p><strong>City of residence</strong></p>" +
     "<p><strong>Country of residence</strong></p>" +
     "<p><strong>Did you graduate from IB?</strong></p>" +
