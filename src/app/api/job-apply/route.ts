@@ -97,21 +97,18 @@ export async function POST(req: Request) {
       source_url: req.headers.get("referer") || undefined,
     };
 
-    const { data, error } = await supabase
-      .from("job_applications")
-      .insert([insertRow])
-      .select()
-      .single();
+    // IMPORTANT: do NOT .select().single() unless you also create a SELECT RLS policy.
+    const { error } = await supabase.from("job_applications").insert([insertRow]);
 
     if (error) {
       console.error("[JOB_APPLY_ERROR]", error);
       return NextResponse.json(
-        { error: "Failed to submit application. Please try again." },
+        { error: error.message || "Failed to submit application. Please try again." },
         { status: 500 }
       );
     }
 
-    return NextResponse.json({ ok: true, id: data.id }, { status: 200 });
+    return NextResponse.json({ ok: true }, { status: 200 });
   } catch (error) {
     console.error("[JOB_APPLY_EXCEPTION]", error);
     return NextResponse.json(
