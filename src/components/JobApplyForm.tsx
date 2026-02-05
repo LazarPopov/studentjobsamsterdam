@@ -45,6 +45,11 @@ export default function JobApplyForm({
       return;
     }
 
+    if (!phone.trim()) {
+      setErr("Please enter your phone number.");
+      return;
+    }
+
     setLoading(true);
     try {
       const form = new FormData();
@@ -56,7 +61,7 @@ export default function JobApplyForm({
       form.append("firstName", firstName);
       form.append("familyName", familyName);
       form.append("email", email);
-      if (phone) form.append("phone", phone);
+      form.append("phone", phone.trim());
       if (message) form.append("message", message);
 
       form.append("consentThisAd", String(consentThisAd));
@@ -97,106 +102,111 @@ export default function JobApplyForm({
   }
 
   return (
-    <section className="mt-8 card p-5">
+    <section className="mt-8 card p-5 max-w-full overflow-hidden">
       <h2 className="text-xl font-semibold">Apply</h2>
       <p className="mt-1 text-sm text-slate-700">
         Your application will be saved with the job and city automatically.
       </p>
 
-      <form onSubmit={onSubmit} className="mt-4 grid gap-3">
-        <div className="grid gap-3 md:grid-cols-2">
-          <label className="grid gap-1">
+      <form onSubmit={onSubmit} className="mt-4 grid gap-3 max-w-full">
+        <div className="grid gap-3 grid-cols-1 md:grid-cols-2 min-w-0">
+          <label className="grid gap-1 min-w-0">
             <span className="text-sm font-medium">First name</span>
             <input
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
+              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
               placeholder="First name"
+              autoComplete="given-name"
             />
           </label>
 
-          <label className="grid gap-1">
+          <label className="grid gap-1 min-w-0">
             <span className="text-sm font-medium">Family name</span>
             <input
               value={familyName}
               onChange={(e) => setFamilyName(e.target.value)}
               required
-              className="rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
+              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
               placeholder="Family name"
+              autoComplete="family-name"
             />
           </label>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-2">
-          <label className="grid gap-1">
+        <div className="grid gap-3 grid-cols-1 md:grid-cols-2 min-w-0">
+          <label className="grid gap-1 min-w-0">
             <span className="text-sm font-medium">Email</span>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               type="email"
-              className="rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
+              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
               placeholder="you@email.com"
+              autoComplete="email"
+              inputMode="email"
             />
           </label>
 
-          <label className="grid gap-1">
-            <span className="text-sm font-medium">Phone (optional)</span>
+          <label className="grid gap-1 min-w-0">
+            <span className="text-sm font-medium">Phone</span>
             <input
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
+              required
+              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
               placeholder="+31 6..."
+              autoComplete="tel"
+              inputMode="tel"
             />
           </label>
         </div>
 
-        <label className="grid gap-1">
-          <span className="text-sm font-medium">Message (optional)</span>
+        <label className="grid gap-1 min-w-0">
+          <span className="text-sm font-medium">Message</span>
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={5}
-            className="rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
+            className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
             placeholder="Availability, experience, languages, etc."
           />
         </label>
 
-        <label className="grid gap-1">
+        <label className="grid gap-1 min-w-0">
           <span className="text-sm font-medium">CV (optional)</span>
           <input
             type="file"
             accept=".pdf,.doc,.docx"
             onChange={(e) => setCvFile(e.target.files?.[0] || null)}
-            className="rounded-xl border border-slate-300 px-3 py-2 bg-white"
+            className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 bg-white"
           />
           <span className="text-xs text-slate-500">PDF, DOC, DOCX</span>
         </label>
 
-        <div className="grid gap-2">
-          <label className="flex items-start gap-2 text-sm text-slate-700">
+        <div className="grid gap-2 min-w-0">
+          <label className="flex items-start gap-2 text-sm text-slate-700 min-w-0">
             <input
               type="checkbox"
               checked={consentThisAd}
               onChange={(e) => setConsentThisAd(e.target.checked)}
-              className="mt-1"
+              className="mt-1 shrink-0"
             />
-            <span>
+            <span className="min-w-0">
               I consent to processing my details for this job application and sharing them with the employer.
             </span>
           </label>
 
-          <label className="flex items-start gap-2 text-sm text-slate-700">
+          <label className="flex items-start gap-2 text-sm text-slate-700 min-w-0">
             <input
               type="checkbox"
               checked={consentSimilarAds}
               onChange={(e) => setConsentSimilarAds(e.target.checked)}
-              className="mt-1"
+              className="mt-1 shrink-0"
             />
-            <span>
-              I consent to being contacted about similar job ads.
-            </span>
+            <span className="min-w-0">I consent to being contacted about similar job ads.</span>
           </label>
         </div>
 
@@ -214,7 +224,7 @@ export default function JobApplyForm({
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-white bg-slate-900 hover:bg-slate-800 disabled:opacity-60"
+          className="w-full inline-flex items-center justify-center rounded-xl px-4 py-3 text-white bg-slate-900 hover:bg-slate-800 disabled:opacity-60"
         >
           {loading ? "Sending..." : "Send application"}
         </button>
