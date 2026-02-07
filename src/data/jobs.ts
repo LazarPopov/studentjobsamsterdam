@@ -96,6 +96,127 @@ type RawJob = Omit<JobRecord, "shortDescrition">;
 
 const RAW_JOBS: RawJob[] = [
   {
+  slug: "domakin-agent-amsterdam",
+  title: "Domakin Student Agent",
+  orgName: "Domakin",
+  descriptionHtml:
+    "<p><strong>Domakin helps students in the Netherlands find housing.</strong> If you want a flexible role that makes a visible impact, and teaches you real communication and sales skills, this is it.</p>" +
+    "<p>As a <strong>Domakin Agent</strong>, you combine two core missions:</p>" +
+    "<ul>" +
+    "<li><strong>Viewing Agent</strong>: attend property viewings on behalf of students who cannot be present, and report back with clear notes and photos.</li>" +
+    "<li><strong>Property Seeker</strong>: help students find accommodation by sourcing rooms and studios, verifying the details, and guiding them through the process.</li>" +
+    "</ul>" +
+    "<h3>What you will do</h3>" +
+    "<ul>" +
+    "<li><strong>Remote viewings</strong>: go to properties in your area, take photos, check key points (registration, condition, neighborhood), and send a structured summary to the student.</li>" +
+    "<li><strong>Property sourcing</strong>: find rooms and apartments, message or call landlords, confirm registration possibility, price, availability, and upload verified options to our system.</li>" +
+    "<li><strong>Student support</strong>: help students move fast, make informed decisions, and avoid scams.</li>" +
+    "<li><strong>Sales training</strong>: we train you to confidently pitch our process to landlords and students, including how we handle room listings and successful takeovers.</li>" +
+    "</ul>" +
+    "<h3>Time and compensation</h3>" +
+    "<ul>" +
+    "<li><strong>Per viewing</strong>: typically <strong>€20 to €40</strong>, and most viewings take <strong>up to 30 minutes</strong> on site (plus travel).</li>" +
+    "<li><strong>Per room result</strong>: <strong>€200</strong> flat per room listing or match, with opportunities <strong>up to €300</strong> for a successful takeover, depending on the deal.</li>" +
+    "<li><strong>Flexible schedule</strong>: take tasks when you want, scale up during busy periods.</li>" +
+    "</ul>" +
+    "<h3>Who this is for</h3>" +
+    "<ul>" +
+    "<li>Proactive and social people who can follow up consistently</li>" +
+    "<li>Comfortable walking into viewings and asking direct questions</li>" +
+    "<li>English friendly, international students welcome</li>" +
+    "</ul>" +
+    "<p><strong>How to apply:</strong> Send a message via the contact form on our website. Write <strong>“Domakin for the win”</strong> and include your email. We will reach out to schedule a short interview.</p>" +
+    "<p><strong>Do work that matters.</strong> Every viewing and every verified room can be the difference between a student having a home, or being stuck for months.</p>",
+  employmentType: "PART_TIME",
+  currency: "EUR",
+  addressLocality: "Amsterdam",
+  area: "All around the Netherlands",
+  englishFriendly: true,
+  workHours: "6 to 20 h/week, flexible",
+  datePosted: new Date().toISOString().slice(0, 10),
+  validThrough: "2026-12-31",
+  categories: ["sales", "fieldwork"],
+  featured: true,
+
+  // Commission style fields (clearer than hourly for this role)
+  perGigAmount: 30,
+  perGigAmountText: "€20 to €40 per remote viewing (avg. up to 30 min on site)",
+  perSaleAmount: 200,
+  perSaleAmountText: "€200 per room listing or match, up to €300 for a successful takeover",
+
+  logoUrl: "/logos/domakin.png",
+  logoAlt: "Domakin logo",
+  // externalUrl: "https://www.domakin.nl/careers",
+},
+{
+  slug: "ib-tutor",
+  title: "IB Tutor (Online)",
+  orgName: "AcademiaAI",
+
+  descriptionHtml:
+    "<p><strong>Earn well per hour</strong> while working flexibly as an IB tutor with AcademiaAI. You can start with as little as <strong>1 hour per week</strong>, or scale up and earn a substantial monthly income.</p>" +
+    "<br>"+
+    "<p>At AcademiaAI, you tutor only within your <strong>area of expertise</strong>. For example, an IB graduate who scored a 6 or 7 in Math AA HL and is studying or has completed a related university degree can tutor DP Math, but not DP Biology. This ensures <strong>high-quality lessons</strong>, which our students truly value.</p>" +
+    "<br>"+
+    "<p>We hire IB graduate tutors throughout the year. Once accepted, you can start tutoring quickly.</p>" +  
+    "<br>"+
+    "<p>When you apply please let us know: </p>"+
+    "<p><strong>City of residence</strong></p>" +
+    "<p><strong>Country of residence</strong></p>" +
+    "<p><strong>Did you graduate from IB?</strong></p>" +
+    "<p><strong>Have you graduated from the International Baccalaureate Diploma Programme (IB DP)?</strong></p>" +
+    "<p><strong>Current and completed university studies</strong></p>" +
+    "<br>"+
+    "<p>Interested? Apply now and start tutoring with AcademiaAI!</p>",
+
+
+
+  baseSalaryMin: 20,
+  baseSalaryMax: 40,
+  employmentType: "PART_TIME",
+  DUO: true,
+  currency: "EUR",
+  payUnit: "HOUR",
+  addressLocality: "Amsterdam",
+  area: "Online tutoring",
+  englishFriendly: true,
+  workHours: "1–20 h/week",
+  datePosted: new Date().toISOString().slice(0, 10),
+  validThrough: "2026-12-31",
+  categories: ["tutoring"],
+  featured: true,
+  perSaleAmountText: "High hourly pay depending on subject and experience",
+  logoUrl: "/logos/academiaAI.png",
+  logoAlt: "AcademiaAI logo",
+},
+    {
+    slug: "pepperminds-door-to-door-sales-amsterdam",
+    title: "Door-to-Door Sales",
+    orgName: "Pepperminds",
+  
+    descriptionHtml:
+     "<p><strong>Earn €150 per shift</strong> as part of Pepperminds’ door-to-door team in Amsterdam. We mix the <em>personal touch in a digital era</em> with energy, coaching, and paid training so you can grow fast and earn even faster.</p><ul><li><strong> Dutch is not required</strong>, and you can even receive DUO… if you work enough hours of course 😉</li><li><strong>The better you are, the more you earn!</strong> You start as a rookie, grow into a promoter, and can become a captain — with performance bonuses reaching up to <strong>€500 a day!</strong></li><li><strong>Learn real sales</strong> — your colleagues are students from all kinds of backgrounds, and together you’ll master the most versatile skill out there: sales!</li><li><strong>Challenge yourself</strong> — every day is different, full of teamwork, laughter, and growth.</li><li><strong>After work culture</strong> — we even have our own bar where the team celebrates wins and unwinds together!</li></ul><p>Ready to test your limits, make friends, and earn like a pro? <strong>Join the crew and start this week!</strong></p>",    baseSalaryMin: 12,
+    employmentType: "PART_TIME",
+    baseSalaryMax: 20,
+    DUO: true,
+    currency: "EUR",
+    payUnit: "HOUR",
+    addressLocality: "Amsterdam",
+    area: "Various districts",
+    englishFriendly: false,
+    workHours: "10–20 h/week",
+    datePosted: new Date().toISOString().slice(0, 10),
+    validThrough: "2026-12-31",
+    categories: ["sales", "fieldwork"],
+    featured: true,
+    // unknown numeric commission -> use text fallback
+    perSaleAmountText: "150 еuros per shift",
+    logoUrl: "/logos/pepperminds.jpeg",
+    logoAlt: "Pepperminds logo",
+    // externalUrl: "https://www.pepperminds.nl/makeithappen/?mkt=LZ&utm_source=viavia&utm_medium=crewapp&utm_campaign=makeithappen",
+  },
+
+   {
   slug: "thuisbezorgd-takeaway-courier-netherlands",
   title: "Food Delivery",
   orgName: "Thuisbezorgd.nl",
@@ -116,75 +237,11 @@ descriptionHtml: "<p><strong>Are you tired of endless study sessions and sitting
   perSaleAmountText: "14 euros per hour",
   logoUrl: "/logos/thuisbezorgd.png",
   logoAlt: "Thuisbezorgd.nl logo",
-  // externalUrl: "http://short.takeaway.com/nl355999758"
-},
-{
-  slug: "ib-tutor",
-  title: "IB Tutor (Online)",
-  orgName: "AcademiaAI",
-
-  descriptionHtml:
-    "<p><strong>Earn well per hour</strong> while working flexibly as an IB tutor with Academia. You can start with as little as <strong>1 hour per week</strong>, or scale up and earn a substantial monthly income.</p>" +
-    "<br>"+
-    "<p>At Academia, you tutor only within your <strong>area of expertise</strong>. For example, an IB graduate who scored a 6 or 7 in Math AA HL and is studying or has completed a related university degree can tutor DP Math, but not DP Biology. This ensures <strong>high-quality lessons</strong>, which our students truly value.</p>" +
-    "<br>"+
-    "<p>We hire IB graduate tutors throughout the year. Once accepted, you can start tutoring quickly.</p>" +  
-    "<p>Interested? Apply now and start tutoring with Academia!</p>" +
-    "<br>"+
-    "<p>When you apply please let us know: </p>"+
-    "<p><strong>City of residence</strong></p>" +
-    "<p><strong>Country of residence</strong></p>" +
-    "<p><strong>Did you graduate from IB?</strong></p>" +
-    "<p><strong>Have you graduated from the International Baccalaureate Diploma Programme (IB DP)?</strong></p>" +
-    "<p><strong>Current and completed university studies</strong></p>",
-
-  baseSalaryMin: 20,
-  baseSalaryMax: 40,
-  employmentType: "PART_TIME",
-  DUO: true,
-  currency: "EUR",
-  payUnit: "HOUR",
-  addressLocality: "Amsterdam",
-  area: "Online tutoring",
-  englishFriendly: true,
-  workHours: "1–20 h/week",
-  datePosted: new Date().toISOString().slice(0, 10),
-  validThrough: "2026-12-31",
-  categories: ["tutoring"],
-  featured: true,
-  perSaleAmountText: "High hourly pay depending on subject and experience",
-  // logoUrl: "/logos/acady.png",
-  // logoAlt: "Acady logo",
+  externalUrl: "http://short.takeaway.com/nl355999758"
 },
 
-    {
-    slug: "pepperminds-door-to-door-sales-Amsterdam",
-    title: "Door-to-Door Sales",
-    orgName: "Pepperminds",
-  
-    descriptionHtml:
-     "<p><strong>Earn €150 per shift</strong> as part of Pepperminds’ door-to-door team in Amsterdam. We mix the <em>personal touch in a digital era</em> with energy, coaching, and paid training so you can grow fast and earn even faster.</p><ul><li><strong> Dutch is not required</strong>, and you can even receive DUO… if you work enough hours of course 😉</li><li><strong>The better you are, the more you earn!</strong> You start as a rookie, grow into a promoter, and can become a captain — with performance bonuses reaching up to <strong>€500 a day!</strong></li><li><strong>Learn real sales</strong> — your colleagues are students from all kinds of backgrounds, and together you’ll master the most versatile skill out there: sales!</li><li><strong>Challenge yourself</strong> — every day is different, full of teamwork, laughter, and growth.</li><li><strong>After work culture</strong> — we even have our own bar where the team celebrates wins and unwinds together!</li></ul><p>Ready to test your limits, make friends, and earn like a pro? <strong>Join the crew and start this week!</strong></p>",    baseSalaryMin: 12,
-    employmentType: "PART_TIME",
-    baseSalaryMax: 20,
-    DUO: true,
-    currency: "EUR",
-    payUnit: "HOUR",
-    addressLocality: "Amsterdam",
-    area: "Various districts",
-    englishFriendly: true,
-    workHours: "10–20 h/week",
-    datePosted: new Date().toISOString().slice(0, 10),
-    validThrough: "2026-12-31",
-    categories: ["sales", "fieldwork"],
-    featured: true,
-    // unknown numeric commission -> use text fallback
-    perSaleAmountText: "150 еuros per shift",
-    logoUrl: "/logos/pepperminds.jpeg",
-    logoAlt: "Pepperminds logo",
-    // externalUrl: "https://www.pepperminds.nl/makeithappen/?mkt=LZ&utm_source=viavia&utm_medium=crewapp&utm_campaign=makeithappen",
-  },
   {
-slug: "uber-eats-courier-Amsterdam",
+slug: "uber-eats-courier-amsterdam",
 title: "Uber Eats Courier",
 orgName: "Uber",
 descriptionHtml:
@@ -206,82 +263,9 @@ featured: false,
 perSaleAmountText: "€750 sign-up reward after 50 trips (within 90 days; terms apply)",
 logoUrl: "/logos/uber.png",
 logoAlt: "Uber logo",
-externalUrl: "https://www.uber.com/signup/drive/deliver/?invite_code=a6cpc37",
-},
-  {
-    slug: "domakin-viewing-agent-Amsterdam",
-    title: "Domakin Viewing Agent (Remote Viewings)",
-    orgName: "Domakin",
-    descriptionHtml:
-      "<p>Visit properties on behalf of students, stream live video, and complete a short checklist (condition, noise, registration, landlord details). Flexible shifts; training provided.</p><ul><li>Equipment: smartphone with data</li><li>Each viewing ~30–45 minutes</li><li>Bonus for fast response times</li></ul>",
-    employmentType: "PART_TIME",
-    baseSalaryMin: 15,
-    baseSalaryMax: 22,
-    currency: "EUR",
-    payUnit: "HOUR",
-    addressLocality: "Amsterdam",
-    area: "Citywide",
-    englishFriendly: true,
-    workHours: "4–16 h/week, flexible",
-    datePosted: new Date().toISOString().slice(0, 10),
-    validThrough: "2026-12-31",
-    categories: ["fieldwork", "events"],
-    featured: false,
-    // amounts for short description
-    perGigAmount: 20,                              // €20 per gig
-    // logo
-    logoUrl: "/logos/domakin.png",
-    logoAlt: "Domakin logo",
-    // externalUrl: "https://www.domakin.nl/careers"
-  },
-  {
-    slug: "domakin-room-finder-Amsterdam",
-    title: "Room Finder",
-    orgName: "Domakin",
-    descriptionHtml: "<p><strong>Do you want to help students who are struggling to find a place to live?</strong> Do you want to work in a growing startup that actually makes a difference — and looks amazing on your CV? Do you want to earn money, build connections, and have a real impact on how things operate? Then <strong>join the Domakin ‘for the win’ team!</strong></p><p>As a <strong>Room Finder</strong> at Domakin, you’ll help international students settle in the Netherlands by sourcing rooms and apartments that allow registration, verifying details with landlords, and uploading them to our platform. Every successful match helps another student find a home — and earns you <strong>€200 per sale!</strong></p><ul><li><strong>Citywide work</strong> — explore your city and connect with landlords</li><li><strong>English-friendly</strong> — perfect for international students</li><li><strong>Learn by doing</strong> — get startup experience that builds your business and communication skills</li><li><strong>Tasks</strong> — outbound calls & messages, quality checks (registration, price, location)</li><li><strong>Great for proactive, social, and persistent students</strong></li></ul><p><strong>How to apply:</strong> Shoot us a message through the contact form on our website — write <strong>“Domakin for the win</strong> along with your email, and we’ll reach out to schedule an interview. Type it with confidence — we’ll know it’s you 😉</p><p>Make an impact, grow your skills, and earn along the way — <strong>Domakin is waiting for you!</strong></p>", 
-    employmentType: "PART_TIME",
-    baseSalaryMin: 12,
-    baseSalaryMax: 18,
-    currency: "EUR",
-    payUnit: "HOUR",
-    addressLocality: "Amsterdam",
-    area: "Citywide",
-    englishFriendly: true,
-    workHours: "6–20 h/week, flexible",
-    datePosted: new Date().toISOString().slice(0, 10),
-    validThrough: "2026-12-31",
-    categories: ["sales"],
-    featured: true,
-    // amounts for short description
-    perSaleAmount: 200,                            // €200 per successful listing/placement
-    logoUrl: "/logos/domakin.png",
-    logoAlt: "Domakin logo",
-    // externalUrl: "https://www.domakin.nl/careers",
-  },
-  {
-    slug: "rentswap-room-finder-Amsterdam",
-    title: "Room Finder",
-    orgName: "RentSwap",
-    descriptionHtml: "<p><strong>Do you already know someone who’s moving out — or maybe you’re leaving your own place soon?</strong> Then this is the perfect opportunity for you! Join <strong>RentSwap</strong>, a Amsterdam-based startup helping students and young professionals find rooms before they even hit the market.</p><p>As a <strong>Room Finder</strong>, you’ll work directly with leaving tenants to identify upcoming rooms, organize one-candidate viewings, and make sure everything is verified — from registration to rent and location. Each successful handover earns you <strong>€200</strong> and helps someone secure their new home.</p><ul><li><strong>Citywide work</strong> — explore Amsterdam while connecting with landlords and tenants</li><li><strong>Flexible hours</strong> — plan your work around your studies or other commitments</li><li><strong>English-friendly</strong> — ideal for international students and expats</li><li><strong>Training included</strong> — learn scripts, communication, and verification skills</li><li><strong>Great for social, proactive, and organized students</strong></li></ul><p><strong>How to apply:</strong> Go to our website and send a short message through the contact form with your email — we’ll reach out to plan your interview.</p><p>Help others find their next home and be part of a fast-growing Amsterdam startup — <strong>join RentSwap today!</strong></p>",    baseSalaryMin: 12,
-    employmentType: "PART_TIME",
-    baseSalaryMax: 18,
-    currency: "EUR",
-    payUnit: "HOUR",
-    addressLocality: "Amsterdam",
-    area: "Citywide",
-    englishFriendly: true,
-    workHours: "8–16 h/week",
-    datePosted: new Date().toISOString().slice(0, 10),
-    validThrough: "2026-12-31",
-    categories: ["sales"],
-    featured: false,
-    // amounts for short description
-    perSaleAmount: 200,                            // €200 per successful handover
-    logoUrl: "/logos/rentswap.png",
-    logoAlt: "RentSwap logo",
-    externalUrl:"https://www.rentswap.nl/",
-  },
-];
+// externalUrl: "https://www.uber.com/signup/drive/deliver/?invite_code=a6cpc37",
+}
+]
 // Paste into src/data/jobs.ts (after RAW_JOBS is defined)
 // Add these external jobs (none featured), then push into RAW_JOBS.
 
