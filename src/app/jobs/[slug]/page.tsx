@@ -1,223 +1,209 @@
-// src/components/JobApplyForm.tsx
-"use client";
+// src/app/jobs/[slug]/page.tsx
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import JobApplyForm from "@/components/JobApplyForm";
+import { getJobBySlug, listJobs } from "@/data/jobs";
+import type { Metadata } from "next";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+const BASE_URL = "https://studentjobsamsterdam.nl";
 
-type JobApplyFormProps = {
-  jobSlug: string;
-  jobTitle?: string;
-  orgName?: string;
-  city: string; // hidden, only sent
-  redirectTo?: string;
-};
+function paySnippet(job: any) {
+  if (!job?.baseSalaryMin) return "";
+  const min = job.baseSalaryMin;
+  const max = job.baseSalaryMax;
+  const unit = job.payUnit ? String(job.payUnit).toLowerCase() : "hour";
+  return max ? `€${min}–€${max}/${unit}` : `€${min}/${unit}`;
+}
 
-export default function JobApplyForm({
-  jobSlug,
-  jobTitle,
-  orgName,
-  city,
-  redirectTo,
-}: JobApplyFormProps) {
-  const router = useRouter();
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const job = getJobBySlug(params.slug);
+  if (!job) return { title: "Job not found" };
 
-  const [firstName, setFirstName] = useState("");
-  const [familyName, setFamilyName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
-  const [cvFile, setCvFile] = useState<File | null>(null);
+  const city = (job.addressLocality ? String(job.addressLocality) : "Amsterdam").trim();
+  const title = `${job.title} at ${job.orgName} in ${city}`;
+  const pay = paySnippet(job);
+  const english = job.englishFriendly ? "English friendly" : "Dutch required";
 
-  const [consentThisAd, setConsentThisAd] = useState(false);
-  const [consentSimilarAds, setConsentSimilarAds] = useState(false);
+  const description =
+    `${job.title} at ${job.orgName} in ${city}. ` +
+    (pay ? `Pay: ${pay}. ` : "") +
+    `${english}. Apply online.`;
 
-  const [loading, setLoading] = useState(false);
-  const [ok, setOk] = useState<string | null>(null);
-  const [err, setErr] = useState<string | null>(null);
+  const canonical = `/jobs/${job.slug}`;
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setOk(null);
-    setErr(null);
+  const ogImage = job.logoUrl
+    ? job.logoUrl.startsWith("http")
+      ? job.logoUrl
+      : `${BASE_URL}${job.logoUrl}`
+    : `${BASE_URL}/og.jpg`;
 
-    if (!consentThisAd) {
-      setErr("Please give consent to process your application for this job.");
-      return;
-    }
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title,
+      description,
+      url: `${BASE_URL}${canonical}`,
+      images: [{ url: ogImage }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
 
-    setLoading(true);
-    try {
-      const form = new FormData();
-      form.append("jobSlug", jobSlug);
-      if (jobTitle) form.append("jobTitle", jobTitle);
-      if (orgName) form.append("orgName", orgName);
-      form.append("city", (city || "amsterdam").toLowerCase());
 
-      form.append("firstName", firstName);
-      form.append("familyName", familyName);
-      form.append("email", email);
-      if (phone) form.append("phone", phone);
-      if (message) form.append("message", message);
+export async function generateStaticParams() {
+  return listJobs().map((j) => ({ slug: j.slug }));
+}
+function JobPostingJsonLd({ job, baseUrl }: { job: any; baseUrl: string }) {
+  const city = (job.addressLocality ? String(job.addressLocality) : "Amsterdam").trim();
 
-      form.append("consentThisAd", String(consentThisAd));
-      form.append("consentSimilarAds", String(consentSimilarAds));
+  const jsonLd: any = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: job.descriptionHtml || "",
+    datePosted: job.datePosted || new Date().toISOString().slice(0, 10),
+    validThrough: job.validThrough || undefined,
+    employmentType: job.employmentType || "PART_TIME",
+    hiringOrganization: {
+      "@type": "Organization",
+      name: job.orgName,
+      logo: job.logoUrl ? (job.logoUrl.startsWith("http") ? job.logoUrl : `${baseUrl}${job.logoUrl}`) : undefined,
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: city,
+        addressCountry: "NL",
+      },
+    },
+    applicantLocationRequirements: {
+      "@type": "Country",
+      name: "Netherlands",
+    },
+    directApply: true,
+  };
 
-      if (cvFile) form.append("cv", cvFile, cvFile.name);
+  if (job.baseSalaryMin) {
+    jsonLd.baseSalary = {
+      "@type": "MonetaryAmount",
+      currency: job.currency || "EUR",
+      value: {
+        "@type": "QuantitativeValue",
+        minValue: job.baseSalaryMin,
+        maxValue: job.baseSalaryMax || undefined,
+        unitText: job.payUnit || "HOUR",
+      },
+    };
+  }
 
-      const res = await fetch("/api/job-apply", { method: "POST", body: form });
-      const data = (await res.json().catch(() => null)) as any;
-
-      if (!res.ok) {
-        setErr(data?.error || "Something went wrong. Please try again.");
-        return;
-      }
-
-      setOk("Application received.");
-      setFirstName("");
-      setFamilyName("");
-      setEmail("");
-      setPhone("");
-      setMessage("");
-      setCvFile(null);
-      setConsentThisAd(false);
-      setConsentSimilarAds(false);
-
-      if (redirectTo) router.push(redirectTo);
-    } catch {
-      setErr("Network error. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+  if (job.externalUrl) {
+    jsonLd.applicationContact = undefined;
+    jsonLd.hiringOrganization = { ...jsonLd.hiringOrganization, sameAs: job.externalUrl };
   }
 
   return (
-    <section className="mt-8 card p-5 max-w-full overflow-hidden">
-      <h2 className="text-xl font-semibold">Apply</h2>
-      <p className="mt-1 text-sm text-slate-700">
-        Your application will be saved with the job and city automatically.
-      </p>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
 
-      <form onSubmit={onSubmit} className="mt-4 grid gap-3 max-w-full">
-        {/* On mobile: 1 column. On md+: 2 columns. Also prevent overflow */}
-        <div className="grid gap-3 grid-cols-1 md:grid-cols-2 min-w-0">
-          <label className="grid gap-1 min-w-0">
-            <span className="text-sm font-medium">First name</span>
-            <input
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
-              placeholder="First name"
-              autoComplete="given-name"
-            />
-          </label>
+export default function JobPage({ params }: { params: { slug: string } }) {
+  const job = getJobBySlug(params.slug);
+  if (!job) notFound();
 
-          <label className="grid gap-1 min-w-0">
-            <span className="text-sm font-medium">Family name</span>
-            <input
-              value={familyName}
-              onChange={(e) => setFamilyName(e.target.value)}
-              required
-              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
-              placeholder="Family name"
-              autoComplete="family-name"
-            />
-          </label>
+  const cityPrefill =
+    (job.addressLocality ? String(job.addressLocality) : "amsterdam").toLowerCase();
+
+  return (
+    <section className="px-6 py-10">
+      <div className="mx-auto max-w-5xl">
+        <div className="text-sm text-slate-600">
+          <Link href="/jobs" className="hover:underline">
+            Jobs
+          </Link>
+          <span className="mx-2">/</span>
+          <span>{job.orgName}</span>
         </div>
 
-        <div className="grid gap-3 grid-cols-1 md:grid-cols-2 min-w-0">
-          <label className="grid gap-1 min-w-0">
-            <span className="text-sm font-medium">Email</span>
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              type="email"
-              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
-              placeholder="you@email.com"
-              autoComplete="email"
-              inputMode="email"
-            />
-          </label>
+        <div className="mt-4 card overflow-hidden">
+          <div className="p-6">
+            <div className="flex items-start gap-4">
+              <div className="relative h-12 w-12 rounded-xl bg-white border border-slate-200 overflow-hidden shrink-0">
+                {job.logoUrl ? (
+                  <Image
+                    src={job.logoUrl}
+                    alt={job.logoAlt || `${job.orgName} logo`}
+                    fill
+                    sizes="48px"
+                    className="object-contain"
+                  />
+                ) : (
+                  <div className="h-full w-full flex items-center justify-center text-sm text-slate-500">
+                    {job.orgName?.[0] ?? "•"}
+                  </div>
+                )}
+              </div>
 
-          <label className="grid gap-1 min-w-0">
-            <span className="text-sm font-medium">Phone (optional)</span>
-            <input
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
-              placeholder="+31 6..."
-              autoComplete="tel"
-              inputMode="tel"
-            />
-          </label>
-        </div>
+              <div className="min-w-0">
+                <h1 className="text-2xl md:text-3xl font-semibold">{job.title}</h1>
+                <div className="text-slate-700">{job.orgName}</div>
 
-        <label className="grid gap-1 min-w-0">
-          <span className="text-sm font-medium">Message (optional)</span>
-          <textarea
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            rows={5}
-            className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-900"
-            placeholder="Availability, experience, languages, etc."
+                <div className="mt-3 text-sm text-slate-700">
+                  {job.baseSalaryMin
+                    ? `€${job.baseSalaryMin}${job.baseSalaryMax ? `–€${job.baseSalaryMax}` : ""}/${job.payUnit?.toLowerCase()}`
+                    : "Pay: N/A"}
+                  {" • "}
+                  {job.workHours ?? "Hours: N/A"}
+                  {job.area ? ` • ${job.area}` : ""}
+                  {" • "}
+                  {job.englishFriendly ? "English-friendly" : "Dutch required"}
+                </div>
+
+              </div>
+            </div>
+
+            <div className="mt-6 prose max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: job.descriptionHtml || "" }} />
+            </div>
+
+            {job.externalUrl ? (
+              <div className="mt-6">
+                <a
+                  href={job.externalUrl}
+                  target="_blank"
+                  rel="nofollow external noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-white bg-slate-900 hover:bg-slate-800"
+                >
+                  Open employer link
+                </a>
+                <p className="mt-2 text-xs text-slate-500">
+                  You can also apply below if you prefer.
+                </p>
+              </div>
+            ) : null}
+
+          <JobApplyForm
+            jobSlug={job.slug}
+            jobTitle={job.title}
+            orgName={job.orgName}
+            city={(job.addressLocality || "amsterdam").toLowerCase()}
+            redirectTo={`/thank-you?job=${encodeURIComponent(job.slug)}`}
           />
-        </label>
-
-        <label className="grid gap-1 min-w-0">
-          <span className="text-sm font-medium">CV (optional)</span>
-          <input
-            type="file"
-            accept=".pdf,.doc,.docx"
-            onChange={(e) => setCvFile(e.target.files?.[0] || null)}
-            className="w-full min-w-0 rounded-xl border border-slate-300 px-3 py-2 bg-white"
-          />
-          <span className="text-xs text-slate-500">PDF, DOC, DOCX</span>
-        </label>
-
-        <div className="grid gap-2 min-w-0">
-          <label className="flex items-start gap-2 text-sm text-slate-700 min-w-0">
-            <input
-              type="checkbox"
-              checked={consentThisAd}
-              onChange={(e) => setConsentThisAd(e.target.checked)}
-              className="mt-1 shrink-0"
-            />
-            <span className="min-w-0">
-              I consent to processing my details for this job application and sharing them with the employer.
-            </span>
-          </label>
-
-          <label className="flex items-start gap-2 text-sm text-slate-700 min-w-0">
-            <input
-              type="checkbox"
-              checked={consentSimilarAds}
-              onChange={(e) => setConsentSimilarAds(e.target.checked)}
-              className="mt-1 shrink-0"
-            />
-            <span className="min-w-0">I consent to being contacted about similar job ads.</span>
-          </label>
+          </div>
         </div>
-
-        {err && (
-          <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-            {err}
-          </div>
-        )}
-        {ok && (
-          <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
-            {ok}
-          </div>
-        )}
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full inline-flex items-center justify-center rounded-xl px-4 py-3 text-white bg-slate-900 hover:bg-slate-800 disabled:opacity-60"
-        >
-          {loading ? "Sending..." : "Send application"}
-        </button>
-      </form>
+      </div>
     </section>
   );
 }

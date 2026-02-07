@@ -20,14 +20,38 @@ export async function generateMetadata({ params }: { params: { category: string 
   const key = params.category;
   const label = CATEGORY_LABELS[key] ?? key;
   return {
-    title: `${label} Jobs in Rotterdam | Student Jobs Rotterdam`,
-    description: `Browse ${label.toLowerCase()} jobs in Rotterdam.`,
-    alternates: { canonical: `https://studentjobsAmsterdam.nl/categories/${key}` },
+    title: `${label} Jobs in Amsterdam | Student Jobs Amsterdam`,
+    description: `Browse ${label.toLowerCase()} jobs in Amsterdam.`,
+    alternates: { canonical: `https://studentjobsamsterdam.nl/categories/${key}` },
   };
 }
 
 export function generateStaticParams() {
   return Object.keys(CATEGORY_LABELS).map((key) => ({ category: key }));
+}
+
+// NEW: ItemList JSON-LD so Google understands this is a jobs list page
+function JobsItemListJsonLd({ items }: { items: { slug: string; title: string }[] }) {
+  const baseUrl = "https://studentjobsamsterdam.nl";
+  const elementList = items.map((j, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: j.title,
+    url: `${baseUrl}/jobs/${j.slug}`,
+  }));
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: elementList,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
 }
 
 function RowLink({
@@ -58,11 +82,17 @@ export default function CategoryPage({ params }: { params: { category: string } 
   return (
     <section className="px-6 py-10">
       <div className="mx-auto max-w-5xl">
+        {/* NEW: JSON-LD for this category listing page (does not affect UI) */}
+        <JobsItemListJsonLd items={jobs.map((j) => ({ slug: j.slug, title: j.title }))} />
+
         <nav className="text-sm text-slate-600">
-          <Link className="underline" href="/">Home</Link> / <span>Categories</span> / <span>{label}</span>
+          <Link className="underline" href="/">
+            Home
+          </Link>{" "}
+          / <span>Categories</span> / <span>{label}</span>
         </nav>
 
-        <h1 className="mt-3 text-3xl md:text-4xl font-semibold">{label} Jobs in Rotterdam</h1>
+        <h1 className="mt-3 text-3xl md:text-4xl font-semibold">{label} Jobs in Amsterdam</h1>
 
         {jobs.length === 0 ? (
           <p className="mt-6 text-slate-700">No jobs in this category yet. Check back soon.</p>

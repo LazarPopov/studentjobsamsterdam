@@ -6,7 +6,7 @@ import { listJobs, listFeaturedJobs } from "@/data/jobs";
 export const metadata = {
   title: "Jobs in Amsterdam | Student Jobs Amsterdam",
   description: "All current student jobs in Amsterdam.",
-  alternates: { canonical: "https://studentjobsamsterdam.nl/jobs/${params.slug}" },
+  alternates: { canonical: "https://studentjobsamsterdam.nl/jobs" },
 };
 
 type Search = { q?: string | string[]; category?: string | string[]; english?: string | string[] };
@@ -16,15 +16,11 @@ function RowLink({
   className,
   children,
 }: {
-  job: { slug: string; externalUrl?: string };
+  job: { slug: string };
   className?: string;
   children: React.ReactNode;
 }) {
-  return job.externalUrl ? (
-    <a href={job.externalUrl} target="_blank" rel="noopener noreferrer" className={className}>
-      {children}
-    </a>
-  ) : (
+  return (
     <Link href={`/jobs/${job.slug}`} className={className}>
       {children}
     </Link>
@@ -35,14 +31,43 @@ function stripHtml(html: string) {
   return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// NEW: ItemList JSON-LD so Google understands this is a jobs list
+function JobsItemListJsonLd({
+  items,
+}: {
+  items: { slug: string; title: string }[];
+}) {
+  const baseUrl = "https://studentjobsamsterdam.nl";
+  const elementList = items.map((j, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: j.title,
+    url: `${baseUrl}/jobs/${j.slug}`,
+  }));
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: elementList,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  );
+}
+
 export default function JobsIndex({ searchParams }: { searchParams: Search }) {
   const q = String(searchParams.q ?? "").trim().toLowerCase();
-  const category = String(searchParams.category ?? "").trim().toLowerCase(); // e.g., "hospitality"
-  const english = String(searchParams.english ?? "").trim().toLowerCase();   // "", "true", "false"
+  const category = String(searchParams.category ?? "").trim().toLowerCase();
+  const english = String(searchParams.english ?? "").trim().toLowerCase();
 
   const all = listJobs();
   const jobs = all.filter((j) => {
-    if (category && !(j.categories as string[]).map((c) => c.toLowerCase()).includes(category)) return false;
+    if (category && !(j.categories as string[]).map((c) => c.toLowerCase()).includes(category))
+      return false;
     if (english === "true" && !j.englishFriendly) return false;
     if (english === "false" && j.englishFriendly) return false;
     if (q) {
@@ -59,13 +84,20 @@ export default function JobsIndex({ searchParams }: { searchParams: Search }) {
   return (
     <section className="px-6 py-10">
       <div className="mx-auto max-w-5xl">
+        {/* NEW: JSON-LD for this listing page (does not affect UI) */}
+        <JobsItemListJsonLd items={jobs.map((j) => ({ slug: j.slug, title: j.title }))} />
+
         {/* Top bar with Return and (optional) Clear filters */}
         <div className="flex items-center justify-between">
           <h1 className="text-3xl md:text-4xl font-semibold">All Jobs in Amsterdam</h1>
           <div className="flex gap-2">
-            <Link href="/" className="btn btn-ghost">← Return</Link>
+            <Link href="/" className="btn btn-ghost">
+              ← Return
+            </Link>
             {hasFilters && (
-              <Link href="/jobs" className="btn btn-ghost">Clear filters</Link>
+              <Link href="/jobs" className="btn btn-ghost">
+                Clear filters
+              </Link>
             )}
           </div>
         </div>
@@ -73,12 +105,14 @@ export default function JobsIndex({ searchParams }: { searchParams: Search }) {
         {/* Results */}
         {jobs.length === 0 ? (
           <div className="mt-6">
-            <p className="text-slate-700">
-              No jobs match your filters. Try changing the search or category.
-            </p>
+            <p className="text-slate-700">No jobs match your filters. Try changing the search or category.</p>
             <div className="mt-4 flex gap-2">
-              <Link href="/jobs" className="btn btn-primary">Browse all jobs</Link>
-              <Link href="/" className="btn btn-ghost">← Return</Link>
+              <Link href="/jobs" className="btn btn-primary">
+                Browse all jobs
+              </Link>
+              <Link href="/" className="btn btn-ghost">
+                ← Return
+              </Link>
             </div>
           </div>
         ) : (
@@ -128,7 +162,9 @@ export default function JobsIndex({ searchParams }: { searchParams: Search }) {
           <div className="mt-12">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl md:text-3xl font-semibold">Featured jobs</h2>
-              <Link href="/employers" className="text-sm underline">Are you a business? Feature your job →</Link>
+              <Link href="/employers" className="text-sm underline">
+                Are you a business? Feature your job →
+              </Link>
             </div>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -159,9 +195,7 @@ export default function JobsIndex({ searchParams }: { searchParams: Search }) {
                     <div className="text-xs font-medium text-brand-700">Featured</div>
                   </div>
 
-                  {job.shortDescrition && (
-                    <p className="mt-3 text-sm text-slate-700">{job.shortDescrition}</p>
-                  )}
+                  {job.shortDescrition && <p className="mt-3 text-sm text-slate-700">{job.shortDescrition}</p>}
 
                   <div className="mt-3 text-sm text-slate-700">
                     {job.area && <span className="mr-3">{job.area}</span>}

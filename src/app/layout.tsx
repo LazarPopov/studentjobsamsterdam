@@ -6,11 +6,53 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Script from "next/script";
 
+const SITE_URL = "https://studentjobsamsterdam.nl";
+const SITE_NAME = "Student Jobs Amsterdam";
+
 export const metadata: Metadata = {
-  title: "Student Jobs Amsterdam",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
   description:
-    "Find student jobs in Amsterdam — English-friendly roles, fast apply tips, and real pay ranges.",
-  // keeps the account meta for site verification
+    "Find student jobs in Amsterdam: English friendly roles, fast apply tips, and real pay ranges.",
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description:
+      "Find student jobs in Amsterdam: English friendly roles, fast apply tips, and real pay ranges.",
+    locale: "en_NL",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: SITE_NAME,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description:
+      "Find student jobs in Amsterdam: English friendly roles, fast apply tips, and real pay ranges.",
+    images: ["/og.jpg"],
+  },
   other: {
     "google-adsense-account": "ca-pub-6526366734536758",
   },
@@ -23,7 +65,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* GTM loader (head) */}
         <Script id="gtm-base" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -35,7 +76,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {/* GA4 gtag.js (direct) */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
           strategy="afterInteractive"
@@ -49,7 +89,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
 
-        {/* Google AdSense (async loader) */}
         <Script
           id="adsense"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6526366734536758"
@@ -59,7 +98,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
 
       <body className="min-h-svh bg-white text-slate-900 flex flex-col">
-        {/* GTM noscript (body top) */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -69,21 +107,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </noscript>
 
-        {/* Plausible (optional) */}
-        <Script
-          defer
-          data-domain="studentjobsamsterdam.nl"
-          src="https://plausible.io/js/script.js"
-        />
+        <Script defer data-domain="studentjobsamsterdam.nl" src="https://plausible.io/js/script.js" />
 
-        {/* Ahrefs Analytics */}
         <Script
           src="https://analytics.ahrefs.com/analytics.js"
           data-key="50xDoV1Gr1jgFxRU/Tgzsw"
           strategy="afterInteractive"
         />
 
-        <main id="main" className="flex-1">{children}</main>
+        <main id="main" className="flex-1">
+          {children}
+        </main>
         <SiteFooter />
         <Analytics />
         <SpeedInsights />
