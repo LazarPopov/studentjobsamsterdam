@@ -216,6 +216,33 @@ const RAW_JOBS: RawJob[] = [
     // externalUrl: "https://www.pepperminds.nl/makeithappen/?mkt=LZ&utm_source=viavia&utm_medium=crewapp&utm_campaign=makeithappen",
   },
 
+      {
+    slug: "pepperminds-door-to-door-sales-amsterdam-nl",
+    title: "Door-to-Door Sales",
+    orgName: "Pepperminds",
+
+    descriptionHtml:
+    "<p><strong>Verdien €150 per shift</strong> als onderdeel van het <a href=\"https://www.pepperminds.nl/makeithappen/?mkt=4930&recruitmentsource=Through_pepper\" target=\"_blank\" rel=\"noopener noreferrer\">Pepperminds door-to-door team</a> in Amsterdam. Wij combineren de <em>persoonlijke touch in een digitaal tijdperk</em> met energie, coaching en betaalde trainingen zodat jij snel kunt groeien én snel kunt verdienen.</p><ul><li>, en je kunt zelfs DUO ontvangen als je genoeg uren werkt 😉</li><li><strong>Hoe beter je presteert, hoe meer je verdient!</strong> Je start als rookie, groeit door tot promoter en kunt captain worden met bonussen tot <strong>€500 per dag!</strong></li><li><strong>Leer echte sales</strong> samen met ambitieuze studenten uit allerlei achtergronden.</li><li><strong>Daag jezelf uit</strong> elke werkdag is anders, vol teamwork en groei.</li><li><strong>After work cultuur</strong> we hebben zelfs een eigen bar om successen te vieren.</li></ul><p>Klaar om je grenzen te verleggen, vrienden te maken en goed te verdienen? <strong>Start deze week nog!</strong></p>",
+    baseSalaryMin: 12,
+    employmentType: "PART_TIME",
+    baseSalaryMax: 20,
+    DUO: true,
+    currency: "EUR",
+    payUnit: "HOUR",
+    addressLocality: "Amsterdam",
+    area: "Verschillende wijken",
+    englishFriendly: false,
+    workHours: "10–20 uur per week",
+    datePosted: new Date().toISOString().slice(0, 10),
+    validThrough: "2026-12-31",
+    categories: ["sales", "fieldwork"],
+    featured: false,
+    perSaleAmountText: "€150 per shift",
+    logoUrl: "/logos/pepperminds.jpeg",
+    logoAlt: "Pepperminds logo",
+  },
+
+
    {
   slug: "thuisbezorgd-takeaway-courier-netherlands",
   title: "Food Delivery",
