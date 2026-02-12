@@ -4,7 +4,7 @@ import Link from "next/link";
 import { listJobs, listFeaturedJobs } from "@/data/jobs";
 
 export const metadata: Metadata = {
-  title: "Browse Job Categories in Amsterdam | Student Jobs Rotterdam",
+  title: "Browse Job Categories in Amsterdam | Student Jobs Amsterdam",
   description:
     "Find student jobs in Rotterdam by category: hospitality, delivery, logistics, retail, tutoring, events, sales, and fieldwork. Mobile-friendly and SEO-optimized.",
   alternates: { canonical: "https://studentjobsAmsterdam.nl/categories/${slug}" },
