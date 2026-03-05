@@ -14,4 +14,9 @@ const guides = [
  title: "Best-Paying Student Jobs in Amsterdam (2026)",
  excerpt: "Shift types, industries, and certifications that add €€ to your hourly rate.",
  },
+ {
+slug: "netherlands-news-in-english",
+title: "Best English news platforms in the Netherlands (2026)",
+excerpt: "Dutch Brief explained, plus DutchNews.nl, NL Times, IamExpat, Expatica, DutchReview, and The Holland Times, with a local angle for internationals.",
+}
 ];
