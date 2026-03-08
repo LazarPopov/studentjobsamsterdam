@@ -12,7 +12,7 @@ const CATEGORIES = [
  { key: "logistics", label: "Logistics" },
  { key: "tutoring", label: "Tutoring" },
  { key: "events", label: "Events" },
- { key: "sales", label: "Sales" },
+ { key: "sles", label: "Sales" },
  { key: "fieldwork", label: "Fieldwork" },
 ];
 
@@ -37,8 +37,8 @@ const PRICING_PLANS = [
  {
  key: "basic",
  name: "Basic",
- price: 25,
- label: "€25",
+ price: 0,
+ label: "€0",
  perks: [
   "Appears in category & search",
   "External apply link (ATS/website)",
@@ -49,8 +49,8 @@ const PRICING_PLANS = [
  {
  key: "featured",
  name: "Featured",
- price: "120",
- label: "€120",
+ price: "29.99",
+ label: "€29.99",
  badge: "Most Purchased",
  perks: [
   "Homepage Featured row (rotates)",
@@ -63,8 +63,8 @@ const PRICING_PLANS = [
  {
  key: "premium",
  name: "Premium",
- price: "",
- label: "€300",
+ price: "49.99",
+ label: "€49.99",
  perks: [
   "Homepage Featured row (higher rotation)",
   "2× Newsletter inclusions (weeks 1 & 3)",
