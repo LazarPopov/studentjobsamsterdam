@@ -77,19 +77,16 @@ export default function Page() {
 
   const blogPosts = [
     {
-      slug: "studenten-bijbaan-amsterdam",
-      title:
-        "Studenten bijbaan Amsterdam (2026) – Goed betaald, Engelstalig & weekend",
-      excerpt:
-        "De ultieme gids voor een studenten bijbaan in Amsterdam: avond/weekend, Engelstalig, zonder ervaring. Uurloon-tabellen, contractvormen, wijken en snelle filters.",
-    },
+    slug: "get-started-ing-student",
+    title: "Opening a Dutch Bank Account (2026)",
+    excerpt: "If you are moving to the Netherlands for your studies, setting up a Dutch bank account can make daily life much easier. This guide explains why it matters." },
     {
       slug: "student-jobs-amsterdam-complete-guide-2026",
       title: "Student Jobs in Amsterdam — Complete Guide (2026)",
       excerpt:
         "Permits, contracts, pay, neighborhoods, and tactics to land a job fast.",
     },
-    {
+    { 
       slug: "english-speaking-student-jobs-amsterdam",
       title: "English-Speaking Student Jobs in Amsterdam (2026)",
       excerpt:
