@@ -251,7 +251,8 @@ const RAW_JOBS: RawJob[] = [
     "<br>" +
     "<p>When applying, please include your motivation, your current study programme, and any requirements from your school or university. A CV is optional.</p>" +
     "<br>" +
-    "<p>Interested? Apply now and join StartDock Amsterdam.</p>",
+    "<p>Interested? Apply via <strong>jobs@startdock.nl</strong> with a title <strong>Student Jobs Amsterdam Application</strong>. The team aims to respond within 48 hours.</p>",
+
 
   baseSalaryMin: 350,
   baseSalaryMax: 700,
@@ -270,7 +271,7 @@ const RAW_JOBS: RawJob[] = [
   perSaleAmountText: "Internship compensation depends on hours, responsibilities, and internship setup",
   logoUrl: "/logos/startdock-amsterdam.png",
   logoAlt: "StartDock Amsterdam logo",
-  externalUrl: "mailto:jobs@startdock.nl?subject=Student%20Jobs%20Amsterdam%20Application"
+  // externalUrl: "mailto:jobs@startdock.nl?subject=Student%20Jobs%20Amsterdam%20Application"
 },
   {
  slug: "pepperminds-door-to-door-sales-amsterdam-nl",
