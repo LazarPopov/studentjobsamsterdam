@@ -9,6 +9,12 @@ type Ad = {
   description: string;
   cta: string;
   badge: string;
+  sponsorText: string;
+  href: string;
+  imageSrc?: string;
+  showDiscount?: boolean;
+  rating?: number;
+  priceHighlights?: string[];
 };
 
 const CITY_LABELS: Record<string, string> = {
@@ -40,18 +46,97 @@ function getCityFromHostname(): string | null {
 
 const trackEvent = (eventName: string, params: Record<string, any>) => {
   if (typeof window === "undefined") return;
-
   const gtag = (window as any).gtag;
   if (typeof gtag === "function") {
     gtag("event", eventName, params);
     return;
   }
-
   const dataLayer = (window as any).dataLayer;
   if (Array.isArray(dataLayer)) {
     dataLayer.push({ event: eventName, ...params });
   }
 };
+
+const StarRating = ({ rating }: { rating: number }) => {
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+
+  return (
+    <div className="flex items-center gap-0.5 mb-1">
+      {[...Array(fullStars)].map((_, i) => (
+        <svg key={i} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+      {hasHalfStar && (
+        <svg className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+          <defs>
+            <linearGradient id="half">
+              <stop offset="50%" stopColor="currentColor" />
+              <stop offset="50%" stopColor="#CBD5E1" stopOpacity="1" />
+            </linearGradient>
+          </defs>
+          <path
+            fill="url(#half)"
+            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+          />
+        </svg>
+      )}
+      <span className="ml-1.5 text-xs font-bold text-slate-600">{rating} / 5</span>
+    </div>
+  );
+};
+
+const STARTDOCK_VARIANTS = [
+  {
+    headline: "Stop working from your bed.",
+    description:
+      "StartDock Amsterdam gives students and young builders a serious workspace across top central locations like Keizersgracht, Herengracht, Singel, and Prins Hendrikkade.",
+    badge: "FOR BUILDERS",
+    cta: "See StartDock Amsterdam",
+    priceHighlights: ["Amsterdam", "5 central locations"],
+  },
+  {
+    headline: "Network while you study.",
+    description:
+      "Join the StartDock Amsterdam community and work near Leidseplein, Koningsplein, and Central Station in spaces filled with entrepreneurs and ambitious people.",
+    badge: "COMMUNITY",
+    cta: "Discover the Community",
+    priceHighlights: ["Canal belt", "Central Station"],
+  },
+  {
+    headline: "Calm workspace in the heart of Amsterdam.",
+    description:
+      "Need focus, strong WiFi, and a better study routine? Work from StartDock Amsterdam in inspiring canal-side locations with real professional energy.",
+    badge: "STUDENT PICK",
+    cta: "Book Your Spot",
+    priceHighlights: ["Study smarter", "Coworking Amsterdam"],
+  },
+];
+
+function getRandomStartDockVariant() {
+  return STARTDOCK_VARIANTS[Math.floor(Math.random() * STARTDOCK_VARIANTS.length)];
+}
+
+function createStartDockAd(): Ad {
+  const variant = getRandomStartDockVariant();
+
+  return {
+    id: `startdock_amsterdam_${variant.headline
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "")}`,
+    headline: variant.headline,
+    description: variant.description,
+    cta: variant.cta,
+    badge: variant.badge,
+    sponsorText: "Sponsored by StartDock Amsterdam",
+    href: "https://startdock.nl/en/locations/amsterdam/",
+    imageSrc: "/logos/startdock-amsterdam.png",
+    showDiscount: false,
+    priceHighlights: variant.priceHighlights,
+  };
+}
 
 export default function PromoAd({
   placement = "general",
@@ -65,8 +150,16 @@ export default function PromoAd({
     const cityName = getCityFromHostname();
     const adPool: Ad[] = [];
 
+    const signaalBase = {
+      sponsorText: "Sponsored by Signaal.app",
+      href: "https://go.signaal.app/studentjobsnl",
+      imageSrc: "/signaal.png",
+      showDiscount: true,
+    };
+
     if (cityName) {
       adPool.push({
+        ...signaalBase,
         id: "signaal_city_students",
         headline: `Find a student room in ${cityName}, faster.`,
         description: `Stop refreshing tabs. Get instant alerts for every new student listing in ${cityName} the second it goes live.`,
@@ -74,31 +167,13 @@ export default function PromoAd({
         badge: "STUDENT FAVORITE",
       });
 
-      adPool.push({
-        id: "signaal_city_general",
-        headline: `Be first for new rentals in ${cityName}.`,
-        description: `Instant alerts and one place to search matching listings in ${cityName}, so you can reply before everyone else.`,
-        cta: `Find Rentals in ${cityName}`,
-        badge: "FAST ALERTS",
-      });
+      if (cityName === "Amsterdam") {
+        adPool.push(createStartDockAd());
+      }
 
-      adPool.push({
-        id: "signaal_nl_students",
-        headline: "Beat the Dutch housing crisis.",
-        description:
-          "The smartest way for students to find studios and apartments across the Netherlands. One search, all listings.",
-        cta: "Find a Room in NL",
-        badge: "TOP RATED",
-      });
+      // other city ads
     } else {
-      adPool.push({
-        id: "signaal_general",
-        headline: "The fastest way to find rentals in the Netherlands.",
-        description:
-          "Get instant alerts and be the first to respond to new listings. Do not miss out on your next home.",
-        cta: "Start Your Search",
-        badge: "PROMO",
-      });
+      adPool.push(createStartDockAd());
     }
 
     const randomAd = adPool[Math.floor(Math.random() * adPool.length)];
@@ -107,7 +182,6 @@ export default function PromoAd({
 
   useEffect(() => {
     if (!activeAd) return;
-
     const locationName = getCityFromHostname() || "Netherlands";
     const impressionKey = `${placement}:${activeAd.id}:${locationName}`;
     if (lastImpressionKeyRef.current === impressionKey) return;
@@ -128,72 +202,78 @@ export default function PromoAd({
 
   if (!activeAd) return null;
 
-  const locationName = getCityFromHostname() || "Netherlands";
+  const isExternalLink = activeAd.href.startsWith("http");
 
   return (
     <div className="my-8 flex justify-center w-full px-4">
       <a
-        href="https://go.signaal.app/studentjobsnl"
-        target="_blank"
-        rel="noopener noreferrer"
+        href={activeAd.href}
+        target={isExternalLink ? "_blank" : undefined}
+        rel={isExternalLink ? "noopener noreferrer" : undefined}
         className="group relative block w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-blue-300 hover:shadow-xl"
-        data-gtm-event="ad_click"
-        data-gtm-label={activeAd.id}
-        data-gtm-placement={placement}
-        onClick={() => {
-          trackEvent("select_promotion", {
-            items: [
-              {
-                promotion_id: activeAd.id,
-                promotion_name: activeAd.headline,
-                creative_name: "PromoAd",
-                creative_slot: placement,
-                location_id: locationName,
-              },
-            ],
-          });
-        }}
       >
         <div className="absolute top-0 right-0 rounded-bl-lg bg-blue-600 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
           {activeAd.badge}
         </div>
 
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-          <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-slate-50 border border-slate-100 shadow-inner">
-            <Image
-              src="/signaal.png"
-              alt="Signaal.app"
-              width={56}
-              height={56}
-              className="object-contain transition-transform group-hover:scale-110"
-            />
+          <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-slate-100 bg-gradient-to-br from-blue-50 to-slate-50 shadow-inner overflow-hidden">
+            {activeAd.imageSrc ? (
+              <Image
+                src={activeAd.imageSrc}
+                alt={activeAd.sponsorText}
+                width={56}
+                height={56}
+                className="object-contain transition-transform group-hover:scale-110"
+              />
+            ) : (
+              <span className="text-3xl">🏢</span>
+            )}
           </div>
 
           <div className="flex-1 text-left">
-            <div className="text-xs font-bold uppercase tracking-tight text-blue-600 mb-1">
-              Sponsored by Signaal.app
+            <div className="flex flex-col gap-0.5 mb-1">
+              <div className="text-xs font-bold uppercase tracking-tight text-blue-600">
+                {activeAd.sponsorText}
+              </div>
+              {activeAd.rating && <StarRating rating={activeAd.rating} />}
             </div>
-            <h4 className="text-xl font-extrabold text-slate-900 md:text-2xl leading-tight">
+
+            <h4 className="text-xl font-extrabold leading-tight text-slate-900 md:text-2xl">
               {activeAd.headline}
             </h4>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">
+
+            <p className="mt-2 text-sm leading-relaxed text-slate-600">
               {activeAd.description}
             </p>
+
+            {activeAd.priceHighlights && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {activeAd.priceHighlights.map((price, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-flex items-center rounded-md border border-green-200 bg-green-50 px-2 py-1 text-xs font-bold text-green-700"
+                  >
+                    {price}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="mt-5 flex flex-wrap items-center gap-4">
               <span className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-bold text-white transition-colors group-hover:bg-blue-600">
                 {activeAd.cta}
               </span>
 
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-medium text-slate-500 italic">
-                  Use code:
-                </span>
-                <span className="rounded-md border-2 border-dashed border-blue-200 bg-blue-50 px-2 py-1 text-sm font-mono font-bold text-blue-700">
-                  ASJOBS
-                </span>
-                <span className="text-sm font-bold text-blue-700">(10% off)</span>
-              </div>
+              {activeAd.showDiscount && (
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium italic text-slate-500">Use code:</span>
+                  <span className="rounded-md border-2 border-dashed border-blue-200 bg-blue-50 px-2 py-1 text-sm font-mono font-bold text-blue-700">
+                    ASJOBS
+                  </span>
+                  <span className="text-sm font-bold text-blue-700">(10% off)</span>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -41,6 +41,13 @@ const POSTS = [
     description: "f you are moving to the Netherlands for your studies, setting up a Dutch bank account can make daily life much easier. This guide explains why it matters, what documents are commonly requested, and what to keep in mind before choosing a bank in the Netherlands.",
     },
 
+    {
+  slug: "startdock-study-hack-amsterdam",
+  title: "Why StartDock Amsterdam Is the Ultimate Study Hack for Students (2026)",
+  description:
+    "A local Amsterdam guide on why StartDock is a smart workspace upgrade for students who want focus, networking, and central canal-belt locations.",
+},
+
     
 
 

@@ -98,7 +98,15 @@ export default function Page() {
       excerpt:
         "Shift bonuses, industries, and certifications that increase pay.",
     },
+    {
+  slug: "startdock-study-hack-amsterdam",
+  title: "Why StartDock Amsterdam Is the Ultimate Study Hack for Students (2026)",
+  excerpt:
+    "A local Amsterdam guide on why StartDock is a smart workspace upgrade for students who want focus, networking, and central canal-belt locations.",
+},
   ];
+
+
 
   const faqs = [
     {

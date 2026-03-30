@@ -189,6 +189,8 @@ const RAW_JOBS: RawJob[] = [
  logoUrl: "/logos/academiaAI.png",
  logoAlt: "AcademiaAI logo",
 },
+
+
  {
  slug: "pepperminds-door-to-door-sales-amsterdam",
  title: "Door-to-Door Sales",
@@ -215,7 +217,61 @@ const RAW_JOBS: RawJob[] = [
  logoAlt: "Pepperminds logo",
  // externalUrl: "https://www.pepperminds.nl/makeithappen/?mkt=LZ&utm_source=viavia&utm_medium=crewapp&utm_campaign=makeithappen",
  },
+{
+  slug: "startdock-community-operations-internship-amsterdam",
+  title: "Community & Operations Internship",
+  orgName: "StartDock Amsterdam",
 
+  descriptionHtml:
+    "<p><strong>Build real experience</strong> while working in one of the most vibrant coworking communities in Amsterdam. As an intern at StartDock Amsterdam, you support daily operations, member experience, and community activities across inspiring locations in the city centre.</p>" +
+    "<br>" +
+    "<p>StartDock has several Amsterdam locations in highly attractive central areas, including <strong>Keizersgracht, Herengracht, Singel, and Prins Hendrikkade</strong>. These spaces combine historic character, strong transport access, calm working environments, and entrepreneurial energy.</p>" +
+    "<br>" +
+    "<p>As a student intern, you truly become part of the team. You help create a <strong>warm, social, and welcoming atmosphere</strong> for members, support the smooth running of the space, and take ownership of projects that help you grow professionally.</p>" +
+    "<br>" +
+    "<p>Every day is different. One moment you may organise a community drinks event, the next you may help with a social media campaign, and before the end of the day you make sure everything looks tip top. This gives you hands on exposure to <strong>facility management, hospitality, community building, customer experience, and operations</strong>.</p>" +
+    "<br>" +
+    "<p>Internships at StartDock are matched as much as possible to the wishes and interests of student colleagues. Projects can include <strong>sustainability, procurement, customer service, customer satisfaction, interior design, and space experience</strong>, while you also participate in daily operations.</p>" +
+    "<br>" +
+    "<p>We are looking for someone who:</p>" +
+    "<p><strong>Enjoys helping others</strong></p>" +
+    "<p><strong>Gets energy from being around people</strong></p>" +
+    "<p><strong>Takes initiative and wants to grow leadership skills</strong></p>" +
+    "<p><strong>Looks at everything through a hospitality perspective</strong></p>" +
+    "<p><strong>Likes making conversation with the people around them</strong></p>" +
+    "<br>" +
+    "<p>What you can expect from StartDock Amsterdam:</p>" +
+    "<p><strong>Young and dynamic culture</strong></p>" +
+    "<p><strong>Tasks aligned with your education</strong></p>" +
+    "<p><strong>Active internship guidance</strong></p>" +
+    "<p><strong>Free lunch</strong></p>" +
+    "<p><strong>Team outings</strong></p>" +
+    "<p><strong>Internship compensation</strong></p>" +
+    "<p><strong>The chance to build your professional network</strong></p>" +
+    "<br>" +
+    "<p>When applying, please include your motivation, your current study programme, and any requirements from your school or university. A CV is optional.</p>" +
+    "<br>" +
+    "<p>Interested? Apply now and join StartDock Amsterdam.</p>",
+
+  baseSalaryMin: 350,
+  baseSalaryMax: 700,
+  employmentType: "INTERN",
+  DUO: false,
+  currency: "EUR",
+  payUnit: "MONTH",
+  addressLocality: "Amsterdam",
+  area: "Community, operations, coworking",
+  englishFriendly: true,
+  workHours: "16-40 h/week",
+  datePosted: "2026/03/30",
+  validThrough: "2026-12-31",
+  categories: ["events", "hospitality"],
+  featured: true,
+  perSaleAmountText: "Internship compensation depends on hours, responsibilities, and internship setup",
+  logoUrl: "/logos/startdock-amsterdam.png",
+  logoAlt: "StartDock Amsterdam logo",
+  externalUrl: "mailto:jobs@startdock.nl?subject=Student%20Jobs%20Amsterdam%20Application"
+},
   {
  slug: "pepperminds-door-to-door-sales-amsterdam-nl",
  title: "Door-to-Door Sales",
@@ -260,7 +316,7 @@ descriptionHtml: "<p><strong>Are you tired of endless study sessions and sitting
  datePosted: new Date().toISOString().slice(0, 10),
  validThrough: "2026-12-31",
  categories: ["delivery", "fieldwork"],
- featured: true,
+ featured: false,
  perSaleAmountText: "14 euros per hour",
  logoUrl: "/logos/thuisbezorgd.png",
  logoAlt: "Thuisbezorgd.nl logo",
